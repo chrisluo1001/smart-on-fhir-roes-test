@@ -14,7 +14,10 @@
         console.log(JSON.stringify(smart));
         var patient = smart.patient;
         var pt = patient.read();
-        $.when(pt,pr).fail(onError);
+        var user = smart.user;
+        var us = patient.read();
+        alert(JSON.stringify(us));
+        $.when(pt,us).fail(onError);
         
         $.when(pt).done(function(patient) {
           ret.resolve(patient);
