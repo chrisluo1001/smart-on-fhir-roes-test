@@ -15,12 +15,12 @@
         var patient = smart.patient;
         var pt = patient.read();
         var user = smart.user;
-        var us = patient.read();
-        alert(JSON.stringify(us));
+        var us = user.read();
         $.when(pt,us).fail(onError);
         
-        $.when(pt).done(function(patient) {
+        $.when(pt, us).done(function(patient, user) {
           ret.resolve(patient);
+          ret.resolve(user);
         });
       } else {
         onError();
