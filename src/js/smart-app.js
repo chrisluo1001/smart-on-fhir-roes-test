@@ -9,13 +9,18 @@
 
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
+        alert('onReady');
+        alert(JSON.stringify(smart));
+        console.log(JSON.stringify(smart));
         var patient = smart.patient;
+        var practitioner = smart.practitioner;
         var pt = patient.read();
+        var pr = practitioner.read();
+        $.when(pt,pr).fail(onError);
 
-        $.when(pt).fail(onError);
-
-        $.when(pt).done(function(patient) {
+        $.when(pt,pr).done(function(patient, pr) {
           ret.resolve(patient);
+          ret.resolve(pr);
         });
       } else {
         onError();
@@ -23,6 +28,8 @@
     }
 
     FHIR.oauth2.ready(onReady, onError);
+    alert(JSON.stringify(practitioner));
+    console.log(JSON.stringify(practitioner));
     return ret.promise();
 
   };
@@ -75,6 +82,8 @@
   }
 
   window.redirectToRoes = function(patient) {
+      alert(JSON.stringify(patient));
+      console.log(JSON.stringify(patient));
       var dz = getPractitioner(patient);
       var icn = getPatientICN(patient);
       var fname = '';
