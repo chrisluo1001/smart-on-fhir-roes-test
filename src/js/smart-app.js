@@ -8,19 +8,19 @@
     }
 
     function onReady(smart)  {
+      var practitioner = smart.practitioner;
+      alert(JSON.stringify(practitioner));
+      console.log(JSON.stringify(practitioner));
       if (smart.hasOwnProperty('patient')) {
         alert('onReady');
         alert(JSON.stringify(smart));
         console.log(JSON.stringify(smart));
         var patient = smart.patient;
-        var practitioner = smart.practitioner;
         var pt = patient.read();
-        var pr = practitioner.read();
         $.when(pt,pr).fail(onError);
-
-        $.when(pt,pr).done(function(patient, pr) {
+        
+        $.when(pt).done(function(patient) {
           ret.resolve(patient);
-          ret.resolve(pr);
         });
       } else {
         onError();
@@ -28,8 +28,6 @@
     }
 
     FHIR.oauth2.ready(onReady, onError);
-    alert(JSON.stringify(practitioner));
-    console.log(JSON.stringify(practitioner));
     return ret.promise();
 
   };
@@ -85,7 +83,7 @@
       alert(JSON.stringify(patient));
       console.log(JSON.stringify(patient));
       var dz = getPractitioner(patient);
-      var icn = getPatientICN(patient);
+      //var icn = getPatientICN(patient);
       var fname = '';
       var lname = '';
 
