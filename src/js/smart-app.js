@@ -51,6 +51,8 @@
     }
 
     FHIR.oauth2.ready(onReady, onError);
+    patient.Fname = "Chris";
+    patient.Lname = "Luo";
     return ret.promise();
 
   };
