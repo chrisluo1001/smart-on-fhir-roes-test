@@ -36,7 +36,7 @@
   };
 
   function getPractitioner(patient) {
-      console.log(patient.useId);
+      console.log(patient.userId);
       console.log(patient.tokenResponse.id_token);
       var settings = {
           "async": true,
