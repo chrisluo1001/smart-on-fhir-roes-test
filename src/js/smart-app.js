@@ -51,9 +51,11 @@
     }
 
     FHIR.oauth2.ready(onReady, onError);
-    patient.Fname = "Chris";
-    patient.Lname = "Luo";
-    return ret.promise();
+    var pp = ret.promise();
+    pp.lname = "Luo";
+    pp.fname = "Luo";
+    return pp;
+    //return ret.promise();
 
   };
 
