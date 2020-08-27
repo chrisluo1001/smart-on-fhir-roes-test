@@ -9,20 +9,21 @@
 
     function onReady(smart)  {
       console.log(smart.userId);
-      console.log(smart.tokenResponse.id_token);
+      console.log(smart.tokenResponse.access_token);
       var settings = {
           "async": true,
-          "url": smart.useId,
+          "url": "https://fhir-ehr-code.cerner.com/dstu2/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/12724069",
           "method": "GET",
           "headers": {
               "Content-Type": "application/json",
               "Accept": "application/json",
-              "Authorization": "Bearer " + smart.tokenResponse.id_token
+              "Authorization": "Bearer " + smart.tokenResponse.access_token
           },
       }
 
       $.ajax(settings).done(function (response) {
-          console.log(response)
+          console.log("prationer ajax call ");
+          console.log(response);
       })
       
       if (smart.hasOwnProperty('patient')) {
