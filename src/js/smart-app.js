@@ -16,11 +16,11 @@
         var pt = patient.read();
         var user = smart.user;
         var us = user.read();
-        $.when(pt).fail(onError);
+        //$.when(pt).fail(onError);
         
-        $.when(pt).done(function(patient) {
+        //$.when(pt).done(function(patient) {
           //ret.resolve(patient);
-        });
+        //});
         $.when(us).fail(onError);
         $.when(us).done(function(user) {
           ret.resolve(user);
