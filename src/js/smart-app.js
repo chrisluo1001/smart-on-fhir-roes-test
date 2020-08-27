@@ -51,12 +51,7 @@
     }
 
     FHIR.oauth2.ready(onReady, onError);
-    var pp = ret.promise();
-    pp.lname = "Luo";
-    pp.fname = "Luo";
-    return pp;
-    //return ret.promise();
-
+    return ret.promise();
   };
 
   function getPractitioner(patient) {
@@ -81,7 +76,6 @@
   function getPatientICN(patient) {
       const dsvIdentifierSystemName = 'urn:oid:2.16.840.1.113883.3.787.0.0';
       const dsvIcnIdentifierSystemName = 'urn:oid:2.16.840.1.113883.3.42.10001.100001.12'
-      //const dsvIcnIdentifierSystemName = 'urn:oid:2.16.840.1.113883.4.349';
 
       let patientId = 'getting';
       let found = false;
