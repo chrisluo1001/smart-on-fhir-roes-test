@@ -32,7 +32,7 @@
     }
 
     //FHIR.oauth2.ready(onReady, onError);
-    FHIR.oauth2.ready()
+    FHIR.oauth2.ready(onReady, onError)
     .then(client => client.request("Patient"))
     .then(console.log)
     .catch(console.error);
