@@ -36,12 +36,22 @@
   };
 
   function getPractitioner(patient) {
-      if (typeof patient.careProvider[0] !== 'undefined') {
-        var pReference = patient.careProvider[0].reference;
+      console.log(patient.useId);
+      console.log(patient.tokenResponse.id_token);
+      var settings = {
+          "async": true,
+          "url": patient.useId,
+          "method": "GET",
+          "headers": {
+              "Content-Type": "application/json",
+              "Accept": "application/json",
+              "Authorization": "Bearer " + patient.tokenResponse.id_token
+          },
       }
-      var dz = pReference.split("/");
-      console.log(dz[1]);
-      return dz[1];
+
+      $.ajax(settings).done(function (response) {
+          console.log(response)
+      })
   }
 
   function getPatientICN(patient) {
@@ -85,7 +95,7 @@
   window.redirectToRoes = function(patient) {
       alert(JSON.stringify(patient));
       console.log(JSON.stringify(patient));
-      var dz = getPractitioner(patient);
+      getPractitioner(patient);
       //var icn = getPatientICN(patient);
       var fname = '';
       var lname = '';
