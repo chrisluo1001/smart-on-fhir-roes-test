@@ -8,6 +8,23 @@
     }
 
     function onReady(smart)  {
+      console.log(smart.userId);
+      console.log(smart.tokenResponse.id_token);
+      var settings = {
+          "async": true,
+          "url": smart.useId,
+          "method": "GET",
+          "headers": {
+              "Content-Type": "application/json",
+              "Accept": "application/json",
+              "Authorization": "Bearer " + smart.tokenResponse.id_token
+          },
+      }
+
+      $.ajax(settings).done(function (response) {
+          console.log(response)
+      })
+      
       if (smart.hasOwnProperty('patient')) {
         //alert('onReady');
         //alert(JSON.stringify(smart));
@@ -95,7 +112,7 @@
   window.redirectToRoes = function(patient) {
       alert(JSON.stringify(patient));
       console.log(JSON.stringify(patient));
-      getPractitioner(patient);
+      //getPractitioner(patient);
       //var icn = getPatientICN(patient);
       var fname = '';
       var lname = '';
