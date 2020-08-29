@@ -44,9 +44,10 @@
         
         $.when(pt).done(function(patient) {
           //ret.resolve(patient);
-          
+          patient.NewField = 'foo';
           alert(JSON.stringify(patient));
           alert(JSON.stringify(patient.resourceType));
+          ret.resolve(patient);
         });
       } else {
         onError();
@@ -54,8 +55,7 @@
     }
 
     FHIR.oauth2.ready(onReady, onError);
-    var zz = ret.promise();
-    return zz;
+    return ret.promise();
   };
 
   function getPractitioner(patient) {
