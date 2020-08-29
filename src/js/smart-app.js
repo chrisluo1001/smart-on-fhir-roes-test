@@ -43,7 +43,7 @@
         $.when(pt).fail(onError);
         
         $.when(pt).done(function(patient) {
-          ret.resolve(patient);
+          //ret.resolve(patient);
           
           alert(JSON.stringify(patient));
           alert(JSON.stringify(patient.resourceType));
