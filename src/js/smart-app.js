@@ -7,31 +7,7 @@
       ret.reject();
     }
 
-    function onReady(smart)  {
-      if (smart.hasOwnProperty('userId')) {
-        console.log(smart.userId);
-        console.log(smart.tokenResponse.access_token);
-        var settings = {
-            "async": true,
-            //"url": userId,
-            "url": "https://fhir-ehr-code.cerner.com/dstu2/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/12724069",
-            "method": "GET",
-            "headers": {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "Authorization": "Bearer " + smart.tokenResponse.access_token
-            },
-        }
-
-        $.ajax(settings).done(function (response) {
-            console.log("prationer ajax call ");
-            console.log(response);
-            //alert(JSON.stringify(response));
-        })
-      } else {
-        onError();
-      }
-      
+    function onReady(smart)  {      
       if (smart.hasOwnProperty('patient')) {
         //alert('onReady');
         //alert(JSON.stringify(smart));
@@ -43,11 +19,36 @@
         $.when(pt).fail(onError);
         
         $.when(pt).done(function(patient) {
-          //ret.resolve(patient);
-          patient.NewField = 'foo';
-          alert(JSON.stringify(patient));
-          alert(JSON.stringify(patient.resourceType));
-          ret.resolve(patient);
+            if (smart.hasOwnProperty('userId')) {
+              console.log(smart.userId);
+              console.log(smart.tokenResponse.access_token);
+              var settings = {
+                  "async": true,
+                  //"url": userId,
+                  "url": "https://fhir-ehr-code.cerner.com/dstu2/ec2458f2-1e24-41c8-b71b-0e701af7583d/Patient/12724069",
+                  "method": "GET",
+                  "headers": {
+                      "Content-Type": "application/json",
+                      "Accept": "application/json",
+                      "Authorization": "Bearer " + smart.tokenResponse.access_token
+                  },
+              }
+
+              $.ajax(settings).done(function (response) {
+                console.log("prationer ajax call ");
+                console.log(response);
+                if (typeof response.name[0] !== 'undefined') {
+                  var lName = response.name[0].family;
+                  patient.l5 = lName.substring(0, 5);
+                }
+                patient.dz = response.id;
+                alert(JSON.stringify(patient));
+                alert(JSON.stringify(patient.resourceType));
+                ret.resolve(patient);
+              })
+            } else {
+              onError();
+            }
         });
       } else {
         onError();
@@ -145,8 +146,8 @@
       
       console.log(l5);
       var sn = "668";
-      var dz = "6729895";
-      var l5 = "NALAM";
+      var dz = patient.dz;
+      var l5 = patient.l5;
       //var ssn = "505335261";
       var ssn = "";
       var icn  = "1013180785V389525";
