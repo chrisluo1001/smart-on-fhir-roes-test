@@ -26,7 +26,7 @@
         $.ajax(settings).done(function (response) {
             console.log("prationer ajax call ");
             console.log(response);
-            alert(JSON.stringify(response));
+            //alert(JSON.stringify(response));
         })
       } else {
         onError();
@@ -115,8 +115,8 @@
   }
 
   window.redirectToRoes = function(patient) {
-      alert(JSON.stringify(patient));
-      console.log(JSON.stringify(patient));
+      //alert(JSON.stringify(patient));
+      //console.log(JSON.stringify(patient));
       //getPractitioner(patient);
       //var icn = getPatientICN(patient);
       var fname = '';
