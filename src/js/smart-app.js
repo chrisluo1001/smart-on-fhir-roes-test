@@ -40,7 +40,7 @@
         
         $.when(pt).done(function(patient) {
           ret.resolve(patient);
-          $.extend(patient, {"fname": "chris"});
+          $.extend(patient, {fname: "chris"});
         });
 //         $.when(us).fail(onError);
 //         $.when(us).done(function(user) {
