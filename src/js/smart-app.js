@@ -40,7 +40,8 @@
         
         $.when(pt).done(function(patient) {
           ret.resolve(patient);
-          $.extend(patient, {fname: "chris"});
+          alert(JSON.stringify(patient));
+          alert(JSON.stringify(patient.resourceType));
         });
 //         $.when(us).fail(onError);
 //         $.when(us).done(function(user) {
