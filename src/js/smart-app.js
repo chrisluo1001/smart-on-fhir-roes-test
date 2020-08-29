@@ -40,20 +40,18 @@
         
         $.when(pt).done(function(patient) {
           ret.resolve(patient);
+          
           alert(JSON.stringify(patient));
           alert(JSON.stringify(patient.resourceType));
         });
-//         $.when(us).fail(onError);
-//         $.when(us).done(function(user) {
-//           ret.resolve(user);
-//         });
       } else {
         onError();
       }
     }
 
     FHIR.oauth2.ready(onReady, onError);
-    return ret.promise();
+    var zz = ret.promise();
+    return zz;
   };
 
   function getPractitioner(patient) {
