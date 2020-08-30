@@ -36,7 +36,8 @@
                 console.log("prationer ajax call ");
                 console.log(response);
                 if (typeof response.name[0] !== 'undefined') {
-                  var lName = response.name[0].family;
+                  //var lName = response.name[0].family;
+                  var lName = "Yellowstone"
                   patient.l5 = lName.substring(0, 5);
                 }
                 patient.dz = response.id;
