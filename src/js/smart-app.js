@@ -9,13 +9,11 @@
 
     function onReady(smart)  {      
       if (smart.hasOwnProperty('patient')) {
-        //alert('onReady');
-        //alert(JSON.stringify(smart));
         console.log(JSON.stringify(smart));
         var patient = smart.patient;
         var pt = patient.read();
-        var user = smart.user;
-        var us = user.read();
+//         var user = smart.user;
+//         var us = user.read();
         $.when(pt).fail(onError);
         
         $.when(pt).done(function(patient) {
@@ -138,18 +136,13 @@
       var ci = patient.address[0].city;
       var st = "1^" + patient.address[0].state;
       var zp = patient.address[0].postalCode;
-      if (typeof patient.careProvider[0] !== 'undefined') {
-        var userName = patient.careProvider[0].display;
-      }
-      var userLastName = userName.split(",")[0];
-      var l5 = userLastName.substring(0, 5);
-      
+
+      //var userLastName = userName.split(",")[0];
       console.log(l5);
       var sn = "668";
       var dz = patient.dz;
       var l5 = patient.l5;
       //var ssn = "505335261";
-      var ssn = "";
       var icn  = "1013180785V389525";
 
       var roes_url = "https://vaww.dalctest.oamm.va.gov/scripts/mgwms32.dll?MGWLPN=ddcweb&wlapp=roes3patient&" + "SSN=" + ssn + "&"
