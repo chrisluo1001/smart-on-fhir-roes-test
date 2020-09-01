@@ -63,7 +63,7 @@
         onError();
       }
     }
-    alert("version 5");
+    alert("version 6");
     FHIR.oauth2.ready(onReady, onError);
     return ret.promise();
   };
