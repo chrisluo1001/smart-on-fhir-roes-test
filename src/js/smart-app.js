@@ -7,17 +7,15 @@
       ret.reject();
     }
 
-    function onReady(smart)  {  
+    function onReady(smart)  {
       alert(JSON.stringify(smart));
       //alert(JSON.stringify(smart.user));
       if (smart.hasOwnProperty('patient')) {
         console.log(JSON.stringify(smart));
         var patient = smart.patient;
         var pt = patient.read();
-//         var user = smart.user;
-//         var us = user.read();
         $.when(pt).fail(onError);
-        
+
         $.when(pt).done(function(patient) {
             if (smart.hasOwnProperty('userId')) {
               alert(smart.userId);
@@ -38,17 +36,15 @@
                 console.log("prationer ajax call ");
                 console.log(response);
                 alert(JSON.stringify(response));
-//                 if (typeof response.name[0] !== 'undefined') {
-//                   var lName = response.name[0].family;
-//                   //var lName = "Yellowstone"
-//                   patient.l5 = lName.substring(0, 5);
-//                 }
+                if (typeof response.name[0] !== 'undefined') {
+                  var lName = response.name[0].family;
+                  patient.l5 = lName.substring(0, 5);
+                }
                 if (typeof response.identifier[0] !== 'undefined') {
                   alert(response.identifier[0].value);
                   var sn = response.identifier[0].value;
                 }
                 //var lName = "Yellowstone"
-                //patient.l5 = lName.substring(0, 5);
                 patient.dz = response.id;
                 patient.sn = sn;
                 alert(JSON.stringify(patient));
@@ -63,7 +59,7 @@
         onError();
       }
     }
-    alert("version 6");
+    alert("version 10");
     FHIR.oauth2.ready(onReady, onError);
     return ret.promise();
   };
@@ -89,7 +85,7 @@
 
   function getPatientICN(patient) {
       const dsvIdentifierSystemName = 'urn:oid:2.16.840.1.113883.3.787.0.0';
-      const dsvIcnIdentifierSystemName = 'urn:oid:2.16.840.1.113883.3.42.10001.100001.12'
+      const dsvIcnIdentifierSystemName = 'urn:oid:2.16.840.1.113883.4.349'
 
       let patientId = 'getting';
       let found = false;
@@ -128,12 +124,12 @@
       //alert(JSON.stringify(patient));
       //console.log(JSON.stringify(patient));
       //getPractitioner(patient);
-      alert(JSON.stringify(smart.user));
+      alert(JSON.stringify(patient));
       var icn = getPatientICN(patient);
       var fname = '';
       var lname = '';
-
-      if (typeof patient.name[0] !== 'undefined') {
+      alert(icn);
+      if (typeof patient.name[0] !== 'undefined' ) {
         fname = patient.name[0].given;
         lname = patient.name[0].family;
       }
@@ -143,17 +139,17 @@
       var dobs = patient.birthDate.split("-");
       var dob = dobs[0]-1700 + dobs[1] + dobs[2];
       console.log(dob);
-
-      var l1 = patient.address[0].line;
-      var ci = patient.address[0].city;
-      var st = "1^" + patient.address[0].state;
-      var zp = patient.address[0].postalCode;
-
+      if (typeof patient.address !== 'undefined' && patient.address != null) {
+        var l1 = patient.address[0].line;
+        var ci = patient.address[0].city;
+        var st = "1^" + patient.address[0].state;
+        var zp = patient.address[0].postalCode;
+      }
       //var userLastName = userName.split(",")[0];
       console.log(l5);
       //var sn = "668";
       var dz = patient.dz;
-      var l5 = patient.l5;
+      if (typeof patient.l5 !== 'undefined') var l5 = patient.l5.toUpperCase();;
       var sn = patient.sn;
       //var ssn = "505335261";
       //var icn  = "1013180785V389525";
@@ -163,7 +159,7 @@
       + "ZP=" + zp + "&" + "DZ=" + dz + "&" + "L5=" + l5 + "&" + "SN=" + sn;
 
       console.log(roes_url);
-
+      alert(roes_url);
       window.location.replace(roes_url);
   };
 
