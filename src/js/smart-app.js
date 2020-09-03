@@ -56,7 +56,44 @@
             }
         });
       } else {
-        onError();
+          alert("patient without context");
+              alert(smart.userId);
+              alert(smart.tokenResponse.access_token);
+              var settings = {
+                  "async": true,
+                  "url": smart.userId,
+                  "method": "GET",
+                  "headers": {
+                      "Content-Type": "application/json",
+                      "Accept": "application/json",
+                      "Authorization": "Bearer " + smart.tokenResponse.access_token
+                  },
+              }
+
+              $.ajax(settings).done(function (response) {
+                console.log("prationer ajax call ");
+                console.log(response);
+                alert(JSON.stringify(response));
+                if (typeof response.name[0] !== 'undefined') {
+                  var lName = response.name[0].family;
+                  patient.l5 = lName.substring(0, 5);
+                }
+                if (typeof response.identifier[0] !== 'undefined') {
+                  alert(response.identifier[0].value);
+                  var sn = response.identifier[0].value;
+                }
+                //var lName = "Yellowstone"
+                patient.dz = response.id;
+                patient.sn = sn;
+                patient.noContext = true;
+                alert(JSON.stringify(patient));
+                alert(JSON.stringify(patient.resourceType));
+                ret.resolve(patient);
+              })
+            } else {
+              onError();
+            }
+        //onError();
       }
     }
     alert("version 10");
@@ -153,11 +190,15 @@
       var sn = patient.sn;
       //var ssn = "505335261";
       //var icn  = "1013180785V389525";
-
-      var roes_url = "https://vaww.dalctest.oamm.va.gov/scripts/mgwms32.dll?MGWLPN=ddcweb&wlapp=roes3patient" + "&"
+      if (patient.noContext) {
+        var roes_url = "https://vaww.dalctest.oamm.va.gov/scripts/mgwms32.dll?MGWLPN=ddcweb&wlapp=roes3home" + "&" + "DZ=" + dz + "&" + "L5=" + l5 + "&" + "SN=" + sn;
+      }
+      else {
+        var roes_url = "https://vaww.dalctest.oamm.va.gov/scripts/mgwms32.dll?MGWLPN=ddcweb&wlapp=roes3patient" + "&"
       + "ICN=" + icn + "&" + "NM=" + nm + "&" + "DOB=" + dob + "&" + "L1=" + l1 + "&" + "CI=" + ci + "&" + "ST=" + st + "&"
       + "ZP=" + zp + "&" + "DZ=" + dz + "&" + "L5=" + l5 + "&" + "SN=" + sn;
-
+      }
+      
       console.log(roes_url);
       alert(roes_url);
       window.location.replace(roes_url);
