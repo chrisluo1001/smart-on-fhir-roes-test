@@ -56,7 +56,7 @@
             }
         });
       } else {
-          alert("patient without context");
+              alert("patient without context");
               alert(smart.userId);
               alert(smart.tokenResponse.access_token);
               var settings = {
@@ -89,10 +89,7 @@
                 alert(JSON.stringify(patient));
                 alert(JSON.stringify(patient.resourceType));
                 ret.resolve(patient);
-              })
-            } else {
-              onError();
-            }
+              })   
         //onError();
       }
     }
@@ -198,7 +195,7 @@
       + "ICN=" + icn + "&" + "NM=" + nm + "&" + "DOB=" + dob + "&" + "L1=" + l1 + "&" + "CI=" + ci + "&" + "ST=" + st + "&"
       + "ZP=" + zp + "&" + "DZ=" + dz + "&" + "L5=" + l5 + "&" + "SN=" + sn;
       }
-      
+
       console.log(roes_url);
       alert(roes_url);
       window.location.replace(roes_url);
