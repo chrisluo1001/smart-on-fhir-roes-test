@@ -153,6 +153,7 @@
 
   window.redirectToRoes = function(patient) {
       //alert(JSON.stringify(patient));
+      alert("url: " + env_url);
       var dz = patient.dz;
       if (typeof patient.l5 !== 'undefined') var l5 = patient.l5.toUpperCase();;
       var sn = patient.sn;
