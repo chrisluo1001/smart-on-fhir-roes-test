@@ -91,7 +91,8 @@ alert("url: " + env_url);
       }
     }
     alert("version 15");
-    alert("url: " + env_url);
+    alert("url: ");
+    alert(env_url);
     FHIR.oauth2.ready(onReady, onError);
     return ret.promise();
   };
